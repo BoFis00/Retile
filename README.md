@@ -1,67 +1,102 @@
-<div align="center">
+# Retile
 
-<img src="src/main/resources/assets/retile/icon.png" width="120" alt="Retile icon">
+A creative-mode building brush for Minecraft **1.21.11** (Fabric). Hold a wooden axe and paint a sphere or cylinder of blocks, where every block is picked from a weighted palette you define.
+
+Works on both client and server. The server validates and applies every stroke, so it's safe on multiplayer creative servers.
+
+## Features
+
+- **Weighted palette:** up to 64 blocks, weight 1–100 each, deterministic per seed
+- **Sphere or cylinder:** radius 1–32, with an optional world-Y range
+- **Chaos:** `0` picks every block independently, `1` keeps one pick per Y layer, `-1` keeps one pick per X/Z column, values in between blend both
+- **Live outlines:** shows exactly which blocks the next apply will change
+- **Drag strokes:** hold the mouse and sweep to paint, one stroke = one undo step
+- **Undo / redo:** per-player, up to 30 steps or 500 000 blocks, configurable hotkeys
+- **Presets:** up to 32 saved palettes
+- **Filters:** restrict which blocks can be replaced, optionally including air
+
+## Usage
+
+1. Hold a **wooden axe** in creative mode.
+2. **Right-click** to open the settings screen.
+3. On **"Replace with"** add blocks and set their weights.
+4. On **"Replace these"** optionally set a filter of blocks that may be changed.
+5. Press **Esc** to save and close.
+7. **Left-click** to apply once, or **hold and drag** to paint a stroke.
+
+## Limits
+
+- Creative-only
+- Blocks with block entities and fluids are not supported
+- Blocks are placed in their default state
+- One stroke is capped at 500 000 changed blocks
+- Unloaded chunks are never force-loaded
+- The server validates every packet (creative mode, axe in hand, block IDs, radius, weights, distance up to 80 blocks)
+
+## Building
+
+Requires Java 21.
+
+```
+./gradlew build
+```
+
+The jar appears in `build/libs/`.
+
+## License
+
+[CC0-1.0](LICENSE): public domain.
+
+<details>
+<summary>🇷🇺 Русская версия</summary>
 
 # Retile
 
-**Кисть для креатива, которая перекрашивает целые области случайными блоками по весам.**
+Строительная кисть для творческого режима Minecraft **1.21.11** (Fabric). Держишь деревянный топор и рисуешь сферу или цилиндр из блоков, где каждый блок выбирается из твоей палитры с весами.
 
-![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-62b47a?style=flat-square)
-![Fabric](https://img.shields.io/badge/Loader-Fabric%200.19.5%2B-dbb69c?style=flat-square)
-![Java](https://img.shields.io/badge/Java-21%2B-orange?style=flat-square)
-![License](https://img.shields.io/badge/License-CC0--1.0-lightgrey?style=flat-square)
-
-</div>
-
----
-
-## Что это
-
-Retile — клиент-серверный мод для Fabric. Вместо того чтобы ставить блоки по одному, вы «рисуете» сферу или цилиндр: каждый блок выбирается из вашей палитры по весам, а режим «хаос» позволяет держать одинаковый блок на слое или в колонне, чтобы текстура выглядела естественно.
+Работает на клиенте и сервере. Сервер проверяет и применяет каждый мазок, так что на мультиплеере это безопасно.
 
 ## Возможности
 
-- 🎨 **Палитра с весами** — до 64 блоков, вес 1–100, детерминированный выбор по seed
-- 🔵 **Формы** — сфера или цилиндр, радиус 1–32, ограничение по Y
-- 🌪 **Хаос** — `0` независимый выбор, `1` один блок на слой Y, `-1` один на колонну X/Z
-- ✨ **Живые контуры** — видно, какие блоки изменит следующее нажатие
-- 🖌 **Мазки** — зажмите ЛКМ и ведите прицелом; один мазок = один шаг истории
-- ↩️ **Отмена / повтор** — на игрока, до 30 шагов и 500 000 блоков, свои хоткеи
-- 💾 **Пресеты** — сохранение палитры с весами, до 32 штук
-
-## Установка
-
-1. Установите **Fabric Loader 0.19.5+** для Minecraft **1.21.11** и **Fabric API**.
-2. Положите `Retile-1.0.0.jar` в `mods` **и клиента, и сервера**.
-3. Нужна **Java 21+**. Мод работает только в креативе.
+- **Палитра с весами:** до 64 блоков, вес 1–100, детерминированный выбор по сиду
+- **Сфера или цилиндр:** радиус 1–32, плюс необязательный диапазон по Y
+- **Хаос:** `0` выбирает каждый блок независимо, `1` один выбор на слой по Y, `-1` один выбор на колонну X/Z, промежуточные значения смешивают оба режима
+- **Живой контур:** показывает, какие блоки изменит следующее применение
+- **Протяжка:** зажми кнопку мыши и води курсором, один мазок = один шаг отмены
+- **Отмена / повтор:** для каждого игрока, до 30 шагов или 500 000 блоков, свои горячие клавиши
+- **Пресеты:** до 32 сохранённых палитр
+- **Фильтры:** какие блоки можно заменять, при желании включая воздух
 
 ## Как пользоваться
 
-| Действие | Что делает |
-| --- | --- |
-| Деревянный топор в руке | Активирует кисть |
-| ПКМ по блоку / воздуху | Открыть настройки |
-| ЛКМ | Применить один раз |
-| Зажать ЛКМ + движение | Рисовать мазок |
-| Esc | Сохранить и закрыть |
-
-В настройках: вкладка **«Заменители»** — палитра и веса, **«Заменяемые»** — фильтр блоков, **«Пресеты»** — сохранённые палитры.
-
-## Сборка
-
-```bash
-./gradlew build      # Windows: gradlew.bat build
-```
-
-Готовый мод появится в `build/libs/`. Тесты запускаются вместе со сборкой.
+1. Возьми **деревянный топор** в творческом режиме.
+2. **ПКМ**, чтобы открыть настройки.
+3. На вкладке **"Replace with"** добавь блоки и задай веса.
+4. На вкладке **"Replace these"** при желании задай фильтр заменяемых блоков.
+5. **Esc** сохраняет и закрывает настройки.
+6. **ЛКМ** применяет один раз, **зажатие и протяжка** рисуют мазок.
 
 ## Ограничения
 
-- Блоки с block entity и жидкости не поддерживаются
+- Только творческий режим
+- Блоки с блок-сущностями и жидкости не поддерживаются
 - Блоки ставятся в состоянии по умолчанию
+- Лимит одного мазка 500 000 блоков
 - Незагруженные чанки не подгружаются
-- Лимит одного мазка — 500 000 блоков
+- Сервер проверяет каждый пакет (режим, топор в руке, ID блоков, радиус, веса, расстояние до 80 блоков)
+
+## Сборка
+
+Нужна Java 21.
+
+```
+./gradlew build
+```
+
+Готовый jar появится в `build/libs/`.
 
 ## Лицензия
 
-CC0-1.0 — берите и делайте что хотите.
+[CC0-1.0](LICENSE): общественное достояние.
+
+</details>
