@@ -1,0 +1,11 @@
+* text=auto eol=lf
+
+# Linux start script should use lf
+/gradlew text eol=lf
+
+# Windows scripts use crlf
+*.bat text eol=crlf
+
+# binary assets
+*.png binary
+*.jar binary
